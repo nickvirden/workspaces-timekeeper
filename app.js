@@ -1,16 +1,20 @@
 require('dotenv').config({ silent: true });
 
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var jwt = require('jwt-express');
+// Requirements
+var express = require('express'),
+  path = require('path'),
+  favicon = require('serve-favicon'),
+  logger = require('morgan'),
+  cookieParser = require('cookie-parser'),
+  bodyParser = require('body-parser'),
+  jwt = require('jwt-express'),
+  request = require('request');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+// Route Files
+var routes = require('./routes/index'),
+    users = require('./routes/users');
 
+// Express App
 var app = express();
 
 // uncomment after placing your favicon in /public
@@ -21,8 +25,46 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Routes
 app.use('/', routes);
 app.use('/users', users);
+
+var WWS_OAUTH_URL = "https://api.watsonwork.ibm.com/oauth/token", // API to authorize application and generate access token.
+  APP_ID = process.env.APP_ID, // App ID retrieved from registration process.
+  APP_SECRET = process.env.APP_SECRET, // App secret retrieved from registration process.
+  authenticationOptions = { // Build request options for authentication.
+    "method": "POST",
+    "url": WWS_OAUTH_URL,
+    "auth": {
+      "user": APP_ID,
+      "pass": APP_SECRET
+    },
+    "form": {
+      "grant_type": "client_credentials"
+    }
+  };
+
+if (!APP_ID || !APP_SECRET) {
+  console.log("Please provide the app id and app secret as environment variables.");
+  process.exit(1);
+}
+
+// Authorize application.
+request(authenticationOptions, function(err, response, body) {
+
+  // If successful authentication, a 200 response code is returned
+  if(response.statusCode == 200){
+    console.log ("Authentication successful\n");
+    console.log ("App Id: " + authenticationOptions.auth.user);
+    console.log ("App Secret: " + authenticationOptions.auth.pass + "\n");
+    console.log ("access_token:\n\n" + JSON.parse(body).access_token + "\n");
+    console.log ("token_type: " + JSON.parse(body).token_type);
+    console.log ("expires_in: " + JSON.parse(body).expires_in);
+    console.log ("\n");
+  } else {
+    console.log("Error authenticating with\nApp: " + authenticationOptions.auth.user + "\nSecret: " + authenticationOptions.auth.pass + "\n\n");
+  }
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -31,10 +73,9 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
+// Error Handlers
 
-// development error handler
-// will print stacktrace
+// Development - Prints stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -45,8 +86,7 @@ if (app.get('env') === 'development') {
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
+// Production - Won't print stacktrace
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
@@ -54,6 +94,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
