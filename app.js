@@ -95,4 +95,14 @@ app.use(function(err, req, res, next) {
   });
 });
 
+var hostname = '0.0.0.0', // 'localhost' if not virtualized
+    port = process.env.PORT || 3000;
+
+app.listen(port, hostname, function() {
+    
+    console.log('Server running at http://' + hostname + ':' + port + '/');
+
+});
+
+
 module.exports = app;
