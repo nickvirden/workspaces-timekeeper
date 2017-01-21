@@ -3,9 +3,8 @@ require('dotenv').config({ silent: true });
 // Requirements
 var express = require('express'),
   path = require('path'),
-  favicon = require('serve-favicon'),
+  // favicon = require('serve-favicon'),
   logger = require('morgan'),
-  cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
   jwt = require('jwt-express'),
   request = require('request');
@@ -19,11 +18,10 @@ var app = express();
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+app.use(express.static(__dirname));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(logger('dev'));
 
 // Routes
 app.use('/', routes);
@@ -96,7 +94,7 @@ app.use(function(err, req, res, next) {
 });
 
 var hostname = '0.0.0.0', // 'localhost' if not virtualized
-    port = process.env.PORT || 3000;
+    port = process.env.PORT || 4000;
 
 app.listen(port, hostname, function() {
     
