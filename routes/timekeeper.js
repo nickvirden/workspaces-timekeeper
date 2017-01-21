@@ -6,7 +6,9 @@ router.post('/timekeeper', function(req, res, next) {
   
 	console.log(req);
 
-	res.send('Hello world!');
+	res.setHeader('Content-Type', 'application/json');
+    res.json({ a: 1 });
+
 });
 
 module.exports = router;
