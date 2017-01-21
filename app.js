@@ -12,7 +12,7 @@ var express = require('express'),
 
 // Route Files
 var routes = require('./routes/index'),
-    users = require('./routes/users');
+    timekeeper = require('./routes/timekeeper');
 
 // Express App
 var app = express();
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/', routes);
-app.use('/users', users);
+app.use('/timekeeper', timekeeper);
 
 var WWS_OAUTH_URL = "https://api.watsonwork.ibm.com/oauth/token", // API to authorize application and generate access token.
   APP_ID = process.env.APP_ID, // App ID retrieved from registration process.
