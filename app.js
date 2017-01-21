@@ -47,6 +47,22 @@ if (!APP_ID || !APP_SECRET) {
   process.exit(1);
 }
 
+var trelloCalls= "";
+
+var success = function(successMsg) {
+  asyncOutput(successMsg);
+};
+
+var error = function(errorMsg) {
+  asyncOutput('error ' + errorMsg);
+}
+
+var newCard = {
+  name: 'new card', // this will be changed to the users input eventually
+};
+
+// Trello.post('/cards/', newCard, success, error);
+
 // Authorize application.
 request(authenticationOptions, function(err, response, body) {
 
@@ -98,7 +114,7 @@ var hostname = 'localhost',
     port = 4000;
 
 app.listen(port, hostname, function() {
-    
+
     console.log('Server running at http://' + hostname + ':' + port + '/');
 
 });
