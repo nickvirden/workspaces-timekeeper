@@ -110,9 +110,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var hostname = '0.0.0.0', // 'localhost' if not virtualized
 var hostname = 'localhost',
-    port = 3000;
+    port = 4000;
 
 app.listen(port, hostname, function() {
 
