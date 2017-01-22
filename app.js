@@ -31,6 +31,8 @@ function messageCreated(body) {
 
         });
 
+        request.post('/checkIn')
+
       }
 
     });
@@ -190,7 +192,7 @@ function initialize() {
           return;
         }
         setTimeout(initialize, 10000);
-        console.log("timed out");
+        console.log("Timed out.");
         return;
       }
 
