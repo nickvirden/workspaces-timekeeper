@@ -9,10 +9,12 @@ router.get('/', function(req, res, next) {
 
 router.post('/checkIn', function(req, res, next) {
   req.body.content;
+  res.send('Hello there Mr!')
 });
 
 router.post('/checkOut', function(req, res, next) {
   req.body.content;
+  res.send('Hey there Mrs!')
 });
 
 module.exports = router;
