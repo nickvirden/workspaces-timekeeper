@@ -99,12 +99,6 @@ app.use(webhook);
 app.use('/checkIn', checkIn);
 app.use('/checkOut', checkOut);
 
-// POST TO HARVEST
-router.post('/https://nickvirden.harvestapp.com/daily/add', function(req, res, next) {
-  res.send(req.body);
-  console.log('A new card has been created and sent to Harvest')
-})
-
 initialize();
 
 http.createServer(app).listen(app.get('port'), '0.0.0.0', function() {
