@@ -1,13 +1,19 @@
 var express = require('express');
 var router = express.Router();
 
-/* POST users listing. */
-router.post('/timekeeper', function(req, res, next) {
-  
-	console.log(req);
+// POST
+router.get('/', function(req, res) {
 
-	res.setHeader('Content-Type', 'application/json');
-    res.json({ a: 1 });
+	console.log(req.params);
+
+	res.send("Hi there!");
+
+});
+
+// POST
+router.post('/timekeeper', function(req, res) {
+
+	res.send({"this": "is a response"});
 
 });
 
