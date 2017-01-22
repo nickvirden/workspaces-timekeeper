@@ -16,7 +16,6 @@ module.exports.handleMessage = function(body, callback) {
   if(/@in/.test(inCommand)) {
 
     callback(null, `Hi, ${body.userName}! Lemme just check you in here...`);
-    
 
   } else if (/@out/.test(outCommand)) {
 
