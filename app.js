@@ -7,7 +7,6 @@ var express = require('express'),
   logger = require('morgan'),
   bodyParser = require('body-parser'),
   jwt = require('jwt-express'),
-  crypto = require('crypto'),
   request = require('request');
 
 // Route Files
@@ -62,88 +61,6 @@ var newCard = {
 };
 
 // Trello.post('/cards/', newCard, success, error);
-
-/**
- * Middleware function to handle the Watson Work challenge
- */
-function verifier(req, res, next) {
-  if(req.body.type === 'verification') {
-    console.log('Got Webhook verification challenge ' + req.body);
-
-    var bodyToSend = {
-      response: req.body.challenge
-    };
-
-    var hashToSend = crypto.createHmac('sha256', WEBHOOK_SECRET)
-          .update(JSON.stringify(bodyToSend))
-          .digest('hex');
-
-    res.set('X-OUTBOUND-TOKEN', hashToSend);
-    res.send(bodyToSend);
-  } else {
-		next();
-	}
-}
-
-var jwtToken = '';
-var errors = 0;
-
-/**
- * Obtains the JWT token needed to post messages to spaces.
- */
-function initialize() {
-	oauth.run(
-		appId,
-		appSecret,
-		(err, token) => {
-			if(err) {
-				console.error(`Failed to get JWT token - attempt ${errors}`);
-				errors++;
-				if(errors > 10) {
-					console.error(`Too many JWT token attempts; giving up`);
-					return;
-				}
-				setTimeout(initialize, 10000);
-				return;
-			}
-
-			console.log("Initialized JWT token");
-			jwtToken = token();
-		});
-}
-
-
-function respond(text, spaceId, callback) {
-	var url = `https://api.watsonwork.ibm.com/v1/spaces/${spaceId}/messages`;
-	var body = {
-		headers: {
-			Authorization: `Bearer ${jwtToken}`
-		},
-		json: true,
-		body: {
-			type: 'appMessage',
-			version: 1.0,
-			annotations: [{
-					type: 'generic',
-					version: 1.0,
-					color: '#6CB7FB',
-					text: text,
-			}]
-		}
-	};
-
-	console.log('Responding to ' + url + ' with ' + JSON.stringify(body));
-
-	request.post(url, body, (err, res) => {
-		if (err || res.statusCode !== 201) {
-			console.error(`Error sending message to ${spaceId} ${err}`);
-			callback(err);
-			return;
-		}
-		callback(null, res.body);
-	});
-}
-
 
 // Authorize application.
 // request(authenticationOptions, function(err, response, body) {
