@@ -13,19 +13,24 @@ var appId = process.env.APP_ID;
 var appSecret = process.env.APP_SECRET;
 
 function messageCreated(body) {
-  // your code here
-
+  
   // message directed to the bot
   if (body.content.substring(0, inTime.length + 1) === `@in`) {
     // for example, process a message
     timekeeper.handleMessage(body, (err, reply) => {
+
       if(!err) {
-        respond(reply, body.spaceId,
-          (err, res) => {
-            // possibly handle result from watsonwork
-          });
+        
+        respond(reply, body.spaceId, (err, res) => {
+          
+          // possibly handle result from watsonwork
+        
+        });
+      
       }
+    
     });
+
   } else if (body.content.substring(0, outTime.length + 1) === `@out`) {
     timekeeper.handleMessage(body, (err, reply) => {
       if(!err) {

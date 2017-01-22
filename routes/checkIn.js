@@ -7,9 +7,13 @@ router.get('/', function(req, res, next) {
 });
 
 // POST
-router.post('/checkIn', function(req, res, next) {
+router.post('/', function(req, res, next) {
 
-  req.body.content;
+  if (!req.body) {
+    res.json({"There's": "nothing here!"});
+  }
+
+  // req.body.content;
   res.send('Hello there Mr!');
 
 });

@@ -1,57 +1,31 @@
 'use strict';
 
-var botName = 'todo';
-var botMessageText = `Would anyone like to do '%s'? Type @${botName} %d.`;
-var actionConfidence = .8;	// i.e. 80% confident it's an action
-var todoId = 0;
-var todos = new Map();
+var botName = 'timekeeper',
+    botMessageText = `Would anyone like to do '%s'? Type @${botName} %d.`,
+    actionConfidence = .8,	// i.e. 80% confident it's an action
+    todoId = 0,
+    todos = new Map(),
+    inTime = "@in",
+    outTime = "@out";
 
 module.exports.handleMessage = function(body, callback) {
-  var command = body.content.substring(botName.length+2);
+  var inCommand = body.content.substring(inTime),
+      outCommand = body.content.substring(outTime);
 
   // if the command is just a number, someone is accepting a todo
-  if(/^\d+$/.test(command)) {
+  if(/${inTime}/.test(inCommand)) {
 
-    // parseInt because the set uses the todoId
-    var todo = todos.get(parseInt(command));
+    callback(null, `Hi, ${body.userName}! Lemme just check you in here...`);
 
-    if(todo) {
-      var userTodos = todos.get(body.userId);
+    // request.post()
+    
+  } else if (/${outTime}/.test(outCommand)) {
 
-      if(userTodos) {
-          userTodos.push(todo);
-      } else {
-        userTodos = [todo];
-      }
+    callback(null, `Timing you out now, ${body.userName}! See ya later! :)`);
 
-      console.log(`${body.userName} ${body.userId} has accepted todo ${todo}`);
-
-      todos.set(body.userId, userTodos);
-
-      callback(null, `Thanks, ${body.userName}. I'll add a todo to your list.`);
-    } else {
-      // * is markdown
-      callback(null, `Hmm. I can't seem to find todo #${command}. I'll add that to *my* todo list.`);
-    }
   } else {
-    // do other commands - for example listing todos
-    console.log(`${body.userName} sent me '${body.content}'`);
-
-    var userTodos = todos.get(body.userId);
-    if(userTodos) {
-      var msg = '';
-      for(var i in userTodos) {
-        // 1. some todo text
-        msg+= `${userTodos[i]} #todo${i}`;
-
-        if((i + 1) < userTodos.length) {
-          msg+= '; ';
-        }
-      }
-      callback(null, `Hi, ${body.userName}. You have these todos: ${msg}`);
-    } else {
-      callback(null, `Hi, ${body.userName}. You don't have anything to do. Lucky you.`);
-    }
+    // Otherwise, the bot doesn't know the command
+    callback(null, `Hmm. I don't know that command. Could you ask it a different way?`);
   }
 }
 
