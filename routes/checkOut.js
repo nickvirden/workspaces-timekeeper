@@ -7,7 +7,7 @@ router.get('/', function(req, res) {
 });
 
 // POST
-router.post('/', function(req, res, next) {
+router.post('/checkOut', function(req, res, next) {
   req.body.content;
   res.send('Hey there Mrs!');
 });
