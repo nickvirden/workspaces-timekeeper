@@ -81,7 +81,7 @@ app.use('/checkIn', checkIn);
 app.use('/checkOut', checkOut);
 
 // all environments
-app.set('port', process.env.PORT || 4000);
+app.set('port', 4000);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
