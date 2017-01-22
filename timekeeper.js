@@ -13,13 +13,13 @@ module.exports.handleMessage = function(body, callback) {
       outCommand = body.content.substring(outTime);
 
   // if the command is just a number, someone is accepting a todo
-  if(/${inTime}/.test(inCommand)) {
+  if(/@in/.test(inCommand)) {
 
     callback(null, `Hi, ${body.userName}! Lemme just check you in here...`);
 
     // request.post()
     
-  } else if (/${outTime}/.test(outCommand)) {
+  } else if (/@out/.test(outCommand)) {
 
     callback(null, `Timing you out now, ${body.userName}! See ya later! :)`);
 
