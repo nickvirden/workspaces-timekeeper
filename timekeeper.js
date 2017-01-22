@@ -19,6 +19,7 @@ module.exports.handleMessage = function(body, callback) {
 
     // request.post()
     
+
   } else if (/@out/.test(outCommand)) {
 
     callback(null, `Timing you out now, ${body.userName}! See ya later! :)`);
