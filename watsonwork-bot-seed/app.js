@@ -14,7 +14,6 @@ var appSecret = '6sd5b8ircutrt7tikc5iy3es7teeyvho';
 /**
  * getting started functions
  */
- 
 
 function messageCreated(body) {
 	// your code here
