@@ -4,7 +4,8 @@ require('dotenv').config({ silent: true });
 var botName = 'timekeeper',
     timekeeper = require('./timekeeper'),
     inTime = '@in',
-    outTime = '@out';
+    outTime = '@out',
+    request = require('request');
 
 
 // watson work configuration; use Bluemix user vars or add values below
@@ -79,8 +80,7 @@ var express = require('express'),
   http = require('http'),
   path = require('path'),
   crypto = require('crypto'),
-  bodyParser = require('body-parser'),
-  request = require('request');
+  bodyParser = require('body-parser');
 
 var oauth = require('./oauth');
 
