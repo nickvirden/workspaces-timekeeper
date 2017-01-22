@@ -1,8 +1,10 @@
 require('dotenv').config({ silent: true });
 
-// an example todo bot
-var botName = 'timekeeper';
-var todo = require('./timekeeper');
+// an example timekeeper bot
+var botName = 'timekeeper',
+    timekeeper = require('./timekeeper'),
+    inTime = '@in',
+    outTime = '@out';
 
 // watson work configuration; use Bluemix user vars or add values below
 // these are provided when you register your appliction
@@ -14,11 +16,20 @@ function messageCreated(body) {
   // your code here
 
   // message directed to the bot
-  if (body.content.substring(0,botName.length+1) === `@${botName}`) {
+  if (body.content.substring(0, inTime.length + 1) === `@in`) {
     // for example, process a message
-    todo.handleMessage(body, (err, reply) => {
+    timekeeper.handleMessage(body, (err, reply) => {
       if(!err) {
-        respond(reply ,body.spaceId,
+        respond(reply, body.spaceId,
+          (err, res) => {
+            // possibly handle result from watsonwork
+          });
+      }
+    });
+  } else if (body.content.substring(0, outTime.length + 1) === `@out`) {
+    timekeeper.handleMessage(body, (err, reply) => {
+      if(!err) {
+        respond(reply, body.spaceId,
           (err, res) => {
             // possibly handle result from watsonwork
           });
@@ -27,26 +38,26 @@ function messageCreated(body) {
   }
 }
 
-function messageAnnotationAdded(body) {
-  // your code here
-  console.log(`${body.type} ${body.annotationType} ${body.annotationPayload}`);
+// function messageAnnotationAdded(body) {
+//   // your code here
+//   console.log(`${body.type} ${body.annotationType} ${body.annotationPayload}`);
 
-  // an example of a focus
-  if(body.annotationType === 'message-focus') {
-    var payload = JSON.parse(body.annotationPayload);
+//   // an example of a focus
+//   if(body.annotationType === 'message-focus') {
+//     var payload = JSON.parse(body.annotationPayload);
 
-    if(payload.lens === 'ActionRequest') {
-      todo.handleActionRequest(body, (err, reply) => {
+//     if(payload.lens === 'ActionRequest') {
+//       timekeeper.handleActionRequest(body, (err, reply) => {
 
-        if(reply){
-          respond(reply, body.spaceId, (err, res) => {
-            // possibly handle result from watsonwork
-          });
-        }
-      });
-    }
-  }
-}
+//         if(reply){
+//           respond(reply, body.spaceId, (err, res) => {
+//             // possibly handle result from watsonwork
+//           });
+//         }
+//       });
+//     }
+//   }
+// }
 
 // dependencies
 var express = require('express'),
