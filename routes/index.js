@@ -8,27 +8,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/checkIn', function(req, res, next) {
-  var checkIn = new messageId(req.body);
-  checkIn.save(function(err) {
-    if (err) {
-      res.status(500).send();
-    }
-    else {
-      res.json(message);
-    }
-  })
+  req.body.content;
+  res.send('Hello there Mr!')
 });
 
 router.post('/checkOut', function(req, res, next) {
-  var checkOut = new messageId(req.body);
-  checkOut.save(function(err) {
-    if (err) {
-      res.status(500).send();
-    }
-    else {
-      res.json(message);
-    }
-  })
+  req.body.content;
+  res.send('Hey there Mrs!')
 });
 
 module.exports = router;
