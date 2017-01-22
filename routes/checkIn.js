@@ -15,12 +15,12 @@ router.post('/', function(req, res, next) {
   res.send('Hello there Mr!');
 });
 
-var harvestId = 'ID';
+var harvestId = 'Started-At';
 
 // POST TO HARVEST
 router.post('/https://nickvirden.harvestapp.com/daily/add', function(req, res, next) {
-  res.send('ID');
-  console.log('A new card has been created and sent to Harvest')
+  res.send(harvestId);
+  console.log('A new time card has been created and sent to Harvest')
 })
 
 module.exports = router;

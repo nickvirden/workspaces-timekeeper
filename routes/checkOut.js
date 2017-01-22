@@ -12,4 +12,12 @@ router.post('/', function(req, res, next) {
   res.send('Hey there Mrs!');
 });
 
+var harvestId = 'Ended-At';
+
+// POST TO HARVEST
+router.post('/https://nickvirden.harvestapp.com/daily/add', function(req, res, next) {
+  res.send(harvestId);
+  console.log('Your time has been saved and updated in Harvest')
+})
+
 module.exports = router;
