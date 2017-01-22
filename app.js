@@ -5,7 +5,7 @@ var botName = 'timekeeper',
     timekeeper = require('./timekeeper'),
     inTime = '@in',
     outTime = '@out';
-    
+
 
 // watson work configuration; use Bluemix user vars or add values below
 // these are provided when you register your appliction
@@ -18,6 +18,7 @@ function messageCreated(body) {
   // message directed to the bot
   if (body.content.substring(0, inTime.length + 1) === `@in`) {
     // for example, process a message
+    console.log('In')
     timekeeper.handleMessage(body, (err, reply) => {
 
       if(!err) {
