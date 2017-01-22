@@ -18,7 +18,7 @@ function messageCreated(body) {
   console.log("Message created.")
 
   // message directed to the bot
-  if (/@in/.test(body.content)) {
+  if (/@in/gi.test(body.content)) {
     // for example, process a message
     console.log('In')
     timekeeper.handleMessage(body, (err, reply) => {
@@ -99,9 +99,10 @@ app.use(webhook);
 app.use('/checkIn', checkIn);
 app.use('/checkOut', checkOut);
 
+initialize();
+
 http.createServer(app).listen(app.get('port'), '0.0.0.0', function() {
   console.log(botName + ' bot listening on ' + app.get('port'));
-  initialize();
 });
 
 // Middleware function to handle the Watson Work challenge
@@ -138,9 +139,13 @@ function ignorer(req, res, next){
 
 // Middleware function to handle the webhook event
 function webhook(req, res, next) {
+
+    console.log("Made it to the webhook!")
+
     switch(req.body.type) {
       case "message-created":
         messageCreated(req.body);
+        console.log("Message created!")
         break;
       case "space-members-added":
         spaceMembersAdded(req.body);
@@ -170,6 +175,9 @@ var errors = 0;
 
 // Obtains the JWT token needed to post messages to spaces.
 function initialize() {
+
+  console.log(`running initialize ${oauth}`);
+
   oauth.run(
     appId,
     appSecret,
@@ -182,6 +190,7 @@ function initialize() {
           return;
         }
         setTimeout(initialize, 10000);
+        console.log("timed out");
         return;
       }
 

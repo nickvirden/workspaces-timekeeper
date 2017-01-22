@@ -7,15 +7,21 @@ var request = require('request'),
 // token expires. Returns a function that will always return a current
 // valid token.
 exports.run = function(appId, secret, cb) {
+
   let tok;
 
   // Return the current token
   const current = () => tok;
 
+  console.log(tok);
+
   // Return the time to live of a token
   const ttl = (tok) =>
     Math.max(0, jsonwebtoken.decode(tok).exp * 1000 - Date.now());
 
+    console.log(tok);
+
+    console.log(cb);
   // Refresh the token
   const refresh = (cb) => {
     console.log('Getting token');
@@ -50,5 +56,5 @@ exports.run = function(appId, secret, cb) {
   };
 
   // Obtain initial token
-  // setImmediate(() => refresh(cb));
+  setImmediate(() => refresh(cb));
 };
