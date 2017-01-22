@@ -15,6 +15,8 @@ var appSecret = '6sd5b8ircutrt7tikc5iy3es7teeyvho';
 
 function messageCreated(body) {
 
+  console.log("Message created.")
+
   // message directed to the bot
   if (/@in/.test(body.content)) {
     // for example, process a message
@@ -224,5 +226,43 @@ function respond(text, spaceId, callback) {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// // API to authorize application and generate access token.
+// var WWS_OAUTH_URL = "https://api.watsonwork.ibm.com/oauth/token";
+
+// // Build request options for authentication.
+// const authenticationOptions = {
+//     "method": "POST",
+//     "url": WWS_OAUTH_URL,
+//     "auth": {
+//       "user": appId,
+//       "pass": appSecret
+//     },
+//     "form": {
+//       "grant_type": "client_credentials"
+//     }
+//   };
+
+// if (!appId || !appSecret) {
+//   console.log("Please provide the app id and app secret as environment variables.");
+//   process.exit(1);
+// }
+
+// // Authorize application.
+// request(authenticationOptions, function(err, response, body){
+
+//   // If successful authentication, a 200 response code is returned
+//   if(response.statusCode == 200){
+//     console.log ("Authentication successful\n");
+//     console.log ("App Id: " + authenticationOptions.auth.user);
+//     console.log ("App Secret: " + authenticationOptions.auth.pass + "\n");
+//     console.log ("access_token:\n\n" + JSON.parse(body).access_token + "\n");
+//     console.log ("token_type: " + JSON.parse(body).token_type);
+//     console.log ("expires_in: " + JSON.parse(body).expires_in);
+//     console.log ("\n");
+//   } else {
+//     console.log("Error authenticating with\nApp: " + authenticationOptions.auth.user + "\nSecret: " + authenticationOptions.auth.pass + "\n\n");
+//   }
+// });
 
 module.exports = app;
