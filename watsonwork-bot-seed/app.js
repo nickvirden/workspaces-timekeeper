@@ -7,9 +7,9 @@ var botName2 = 'messageToServer';
 
 // watson work configuration; use Bluemix user vars or add values below
 // these are provided when you register your appliction
-var webhookSecret = 'eb7hq530q476bye5c4ki8d4kkhi4hwdi';
-var appId = 'd5277090-e796-4ba5-87d0-1d2674b6426e';
-var appSecret = '6sd5b8ircutrt7tikc5iy3es7teeyvho';
+var webhookSecret = '';
+var appId = '';
+var appSecret = '';
 
 /**
  * getting started functions
