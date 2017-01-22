@@ -28,7 +28,7 @@ function messageCreated(body) {
         respond(reply, body.spaceId, (err, res) => {
 
           // possibly handle result from watsonwork
-          request('/checkIn', function (error, response, body) {
+          request.post('/checkIn', function (error, response, body) {
 
             if (!error && response.statusCode == 200) {
               console.log(body)
