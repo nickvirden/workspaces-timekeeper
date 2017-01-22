@@ -76,10 +76,6 @@ var app = express();
 var checkIn = require('./routes/checkIn'),
     checkOut = require('./routes/checkOut');
 
-// Routes
-app.use('/checkIn', checkIn);
-app.use('/checkOut', checkOut);
-
 // all environments
 app.set('port', 4000);
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -89,6 +85,10 @@ app.use(bodyParser.json());
 app.use(verifier);
 app.use(ignorer);
 app.use(webhook);
+
+// Routes
+app.use('/checkIn', checkIn);
+app.use('/checkOut', checkOut);
 
 http.createServer(app).listen(app.get('port'), '0.0.0.0', function() {
   console.log(botName + ' bot listening on ' + app.get('port'));
