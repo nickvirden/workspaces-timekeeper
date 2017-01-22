@@ -9,6 +9,8 @@ var express = require('express'),
   jwt = require('jwt-express'),
   request = require('request');
 
+
+
 // Route Files
 var checkIn = require('./routes/checkIn'),
     checkOut = require('./routes/checkOut');
