@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
 });
 
 // POST
-router.post('/timekeeper', function(req, res) {
+router.post('/', function(req, res) {
 
 	res.send({"this": "is a response"});
 

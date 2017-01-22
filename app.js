@@ -110,6 +110,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
+// var hostname = '0.0.0.0', // 'localhost' if not virtualized
 var hostname = 'localhost',
     port = 4000;
 
