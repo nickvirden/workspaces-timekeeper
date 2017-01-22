@@ -50,5 +50,5 @@ exports.run = function(appId, secret, cb) {
   };
 
   // Obtain initial token
-  setImmediate(() => refresh(cb));
+  // setImmediate(() => refresh(cb));
 };
