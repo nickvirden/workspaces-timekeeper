@@ -5,6 +5,7 @@ var botName = 'timekeeper',
     timekeeper = require('./timekeeper'),
     inTime = '@in',
     outTime = '@out';
+    
 
 // watson work configuration; use Bluemix user vars or add values below
 // these are provided when you register your appliction
@@ -13,22 +14,22 @@ var appId = process.env.APP_ID;
 var appSecret = process.env.APP_SECRET;
 
 function messageCreated(body) {
-  
+
   // message directed to the bot
   if (body.content.substring(0, inTime.length + 1) === `@in`) {
     // for example, process a message
     timekeeper.handleMessage(body, (err, reply) => {
 
       if(!err) {
-        
+
         respond(reply, body.spaceId, (err, res) => {
-          
+
           // possibly handle result from watsonwork
-        
+
         });
-      
+
       }
-    
+
     });
 
   } else if (body.content.substring(0, outTime.length + 1) === `@out`) {
