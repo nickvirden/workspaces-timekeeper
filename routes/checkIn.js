@@ -33,8 +33,4 @@ router.post('/', function(req, res, next) {
 
 });
 
-var harvestId = 'Started-At';
-
-
-
 module.exports = router;
