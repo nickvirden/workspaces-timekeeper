@@ -20,7 +20,7 @@ router.post('/', function(req, res, next) {
       'content-type': 'application/xml',
       'accept': 'application/xml',
       'authorization': `Basic ${btoa("nickvirden@gmail.com:13374ppl3s")}`
-    }];
+    }]
   }, function (error, response, body) {
     if (error) {
       return console.error('Nothing returned')

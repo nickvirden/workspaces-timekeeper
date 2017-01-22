@@ -33,7 +33,7 @@ function messageCreated(body) {
             if (!error && response.statusCode == 200) {
               console.log(body)
             }
-          }
+          });
 
         });
 
