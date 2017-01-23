@@ -10,9 +10,9 @@ var botName = 'timekeeper',
 
 // watson work configuration; use Bluemix user vars or add values below
 // these are provided when you register your appliction
-var webhookSecret = 'eb7hq530q476bye5c4ki8d4kkhi4hwdi';
-var appId = 'd5277090-e796-4ba5-87d0-1d2674b6426e';
-var appSecret = '6sd5b8ircutrt7tikc5iy3es7teeyvho';
+var webhookSecret = process.env.WH_SECRET;
+var appId = process.env.APP_ID;
+var appSecret = process.env.APP_SECRET;
 
 function messageCreated(body) {
 
@@ -34,6 +34,7 @@ function messageCreated(body) {
             if (!error && response.statusCode == 200) {
               console.log(body)
             }
+
           });
 
         });

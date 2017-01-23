@@ -3,21 +3,16 @@ var router = express.Router();
 
 // GET
 router.get('/', function(req, res) {
-	res.send("Hi there!");
+	res.send("Check Out GET route.");
 });
 
 // POST
 router.post('/', function(req, res, next) {
-  req.body.content;
-  res.send('Hey there Mrs!');
+	console.log("Check Out POST route.")
+
+ 	res.status(200).send();
+	res.send("You could reach Harvest with that route!");
+
 });
-
-var harvestId = 'Ended-At';
-
-// POST TO HARVEST
-router.post('/https://nickvirden.harvestapp.com/daily/add', function(req, res, next) {
-  res.send(harvestId);
-  console.log('Your time has been saved and updated in Harvest')
-})
 
 module.exports = router;
